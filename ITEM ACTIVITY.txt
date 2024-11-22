@@ -1,6 +1,6 @@
 ITEM:
 
-package helloooo;
+package JPA;
 
 import java.util.Objects;
 
@@ -105,7 +105,7 @@ public class Item {
 
 ORDER:
 
-package helloooo;
+package JPA;
 import java.util.List;
 import java.util.Objects;
 
@@ -165,7 +165,7 @@ public class Order {
 
 SALESPERSON:
 
-package helloooo;
+package JPA;
 
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
@@ -212,7 +212,7 @@ public class SalePerson {
 SALES
 
 
-package helloooo;
+package JPA;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import java.util.List;
@@ -257,7 +257,7 @@ public class Sales {
 
 TURNOVER:
 
-package helloooo;
+package JPA;
 
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
@@ -302,13 +302,10 @@ public class TurnOver {
 
 ITEMSERVICE:
 
-package helloooo;
+package JPA;
 import javax.persistence.*;
-import helloooo.Item;
-import helloooo.Order;
-import helloooo.SalePerson;
-import helloooo.Sales;
-import helloooo.TurnOver;
+import JPA.*;
+
 public class ItemService {
 	EntityManager entity;
 	public ItemService()
@@ -357,16 +354,11 @@ public class ItemService {
 
 APP.JAVA:
 
-package JPAapp.helloooo;
+package JPAapp.JPA;
 import org.hibernate.mapping.List;
 import java.util.ArrayList;
 
-import helloooo.Item;
-import helloooo.ItemService;
-import helloooo.Order;
-import helloooo.SalePerson;
-import helloooo.Sales;
-import helloooo.TurnOver;
+import JPAapp.JPA.*;
 /**
  * Hello world!
  */
