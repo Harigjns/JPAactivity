@@ -1,0 +1,428 @@
+ITEM:
+
+package helloooo;
+
+import java.util.Objects;
+
+import javax.persistence.*;
+
+@Entity
+public class Item {
+	@Id
+	private int itemid;
+	private String itemName;
+	private int price;
+	private int quantity;
+	private int available;
+	
+	
+	public Item() {
+		super();
+	}
+
+
+	public int getItemid() {
+		return itemid;
+	}
+
+
+	public void setItemid(int itemid) {
+		this.itemid = itemid;
+	}
+
+
+	public String getItemName() {
+		return itemName;
+	}
+
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+
+	public int getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+
+	public int getAvailable() {
+		return available;
+	}
+
+
+	public void setAvailable(int available) {
+		this.available = available;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Item [itemid=" + itemid + ", itemName=" + itemName + ", price=" + price + ", quantity=" + quantity
+				+ ", available=" + available + "]";
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(available, itemName, itemid, price, quantity);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Item other = (Item) obj;
+		return available == other.available && Objects.equals(itemName, other.itemName) && itemid == other.itemid
+				&& price == other.price && quantity == other.quantity;
+	}
+	
+	
+	
+ 
+}
+
+
+ORDER:
+
+package helloooo;
+import java.util.List;
+import java.util.Objects;
+
+import javax.persistence.*;
+@Entity
+public class Order {
+	@Id
+	private int orderid;
+	@OneToMany(mappedBy="order",cascade=CascadeType.PERSIST)
+	private List<Item> itemList;
+	
+	private String dateOfDelivery;
+	private int totalAmount;
+	private boolean status;
+	@Override
+	public String toString() {
+		return "Order [orderid=" + orderid + ", itemList=" + itemList + ", dateOfDelivery=" + dateOfDelivery
+				+ ", totalAmount=" + totalAmount + ", status=" + status + "]";
+	}
+	public int getOrderid() {
+		return orderid;
+	}
+	public void setOrderid(int orderid) {
+		this.orderid = orderid;
+	}
+	public List<Item> getItemList() {
+		return itemList;
+	}
+	public void setItemList(List<Item> itemList) {
+		this.itemList = itemList;
+	}
+	public String getDateOfDelivery() {
+		return dateOfDelivery;
+	}
+	public void setDateOfDelivery(String dateOfDelivery) {
+		this.dateOfDelivery = dateOfDelivery;
+	}
+	public int getTotalAmount() {
+		return totalAmount;
+	}
+	public void setTotalAmount(int totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
+	public Order()
+	{}
+	
+	
+
+}
+
+SALESPERSON:
+
+package helloooo;
+
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+import java.util.List;
+import javax.persistence.*;
+
+@Entity
+public class SalePerson {
+	@Id
+	private int personId;
+	private String personName;
+	@OneToMany(mappedBy="saleperson",cascade=CascadeType.PERSIST)
+	private List<Order>orderList;
+	public int getPersonId() {
+		return personId;
+	}
+	public void setPersonId(int personId) {
+		this.personId = personId;
+	}
+	public String getPersonName() {
+		return personName;
+	}
+	public void setPersonName(String personName) {
+		this.personName = personName;
+	}
+	public List<Order> getOrderList() {
+		return orderList;
+	}
+	public void setOrderList(List<Order> orderList) {
+		this.orderList = orderList;
+	}
+	public SalePerson()
+	{}
+	@Override
+	public String toString() {
+		return "SalePerson [personId=" + personId + ", personName=" + personName + ", orderList=" + orderList + "]";
+	}
+	
+	
+
+}
+
+
+SALES
+
+
+package helloooo;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+import java.util.List;
+import javax.persistence.*;
+@Entity
+public class Sales {
+	
+	@Id
+	private int saleId;
+	@OneToMany(mappedBy="sales",cascade=CascadeType.PERSIST)
+	private List<SalePerson> salePersonList;
+	private int totalSales;
+	public int getSaleId() {
+		return saleId;
+	}
+	public void setSaleId(int saleId) {
+		this.saleId = saleId;
+	}
+	public List<SalePerson> getSalePersonList() {
+		return salePersonList;
+	}
+	public void setSalePersonList(List<SalePerson> salePersonList) {
+		this.salePersonList = salePersonList;
+	}
+	public int getTotalSales() {
+		return totalSales;
+	}
+	public void setTotalSales(int totalSales) {
+		this.totalSales = totalSales;
+	}
+	@Override
+	public String toString() {
+		return "Sales [saleId=" + saleId + ", salePersonList=" + salePersonList + ", totalSales=" + totalSales + "]";
+	}
+	
+	public Sales()
+	{}
+	
+
+}
+
+
+TURNOVER:
+
+package helloooo;
+
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+import java.util.List;
+import javax.persistence.*;
+@Entity
+public class TurnOver {
+	@Id
+	private int year;
+	
+	@OneToMany(mappedBy="TurnOver",cascade=CascadeType.PERSIST)
+	private List<Sales> saleList;
+	
+	public TurnOver(){}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public List<Sales> getSaleList() {
+		return saleList;
+	}
+
+	public void setSaleList(List<Sales> saleList) {
+		this.saleList = saleList;
+	}
+
+	@Override
+	public String toString() {
+		return "TurnOver [year=" + year + ", saleList=" + saleList + "]";
+	}
+	
+	
+
+}
+
+
+
+ITEMSERVICE:
+
+package helloooo;
+import javax.persistence.*;
+import helloooo.Item;
+import helloooo.Order;
+import helloooo.SalePerson;
+import helloooo.Sales;
+import helloooo.TurnOver;
+public class ItemService {
+	EntityManager entity;
+	public ItemService()
+	{
+		EntityManagerFactory e=Persistence.createEntityManagerFactory("Item");
+		entity=e.createEntityManager();
+		
+	}
+	public void saveItem(Item i)
+	{
+		EntityTransaction t=entity.getTransaction();
+		t.begin();
+		entity.persist(i);
+		t.commit();
+	}
+	public void saveOrder(Order o)
+	{
+		EntityTransaction t=entity.getTransaction();
+		t.begin();
+		entity.persist(o);
+		t.commit();
+	}
+	public void saveSalePerson(SalePerson s)
+	{
+		EntityTransaction t=entity.getTransaction();
+		t.begin();
+		entity.persist(s);
+		t.commit();
+	}
+	public void saveSales(Sales a)
+	{
+		EntityTransaction t=entity.getTransaction();
+		t.begin();
+		entity.persist(a);
+		t.commit();
+	}
+	public void saveTurnOver(TurnOver to)
+	{
+		EntityTransaction t=entity.getTransaction();
+		t.begin();
+		entity.persist(to);
+		t.commit();
+	}
+}
+
+
+APP.JAVA:
+
+package JPAapp.helloooo;
+import org.hibernate.mapping.List;
+import java.util.ArrayList;
+
+import helloooo.Item;
+import helloooo.ItemService;
+import helloooo.Order;
+import helloooo.SalePerson;
+import helloooo.Sales;
+import helloooo.TurnOver;
+/**
+ * Hello world!
+ */
+public class App {
+    public static void main(String[] args)
+    {
+        System.out.println("Hello World!");
+        Item a=new Item();
+        a.setItemid(1);
+        a.setItemName("Pizza");
+        a.setPrice(200);
+        a.setQuantity(3);
+        a.setAvailable(5);
+        
+        
+        Order b=new Order();
+        b.setOrderid(2);
+        ArrayList<Item> l=new ArrayList<>();
+        l.add(a);
+        b.setItemList(l);
+        b.setDateOfDelivery("24/02/2003");
+        b.setTotalAmount(30000);
+        b.setStatus(true);
+        
+        
+        SalePerson c=new SalePerson();
+        c.setPersonId(3);
+        c.setPersonName("Asha");
+        ArrayList<Order> j=new ArrayList<>();
+        j.add(b);
+        c.setOrderList(j);
+        
+        
+        Sales d=new Sales();
+        d.setSaleId(4);
+        ArrayList<SalePerson> k=new ArrayList<>();
+        k.add(c);
+        d.setSalePersonList(k);
+        d.setTotalSales(30);
+        
+        
+        TurnOver e=new TurnOver();
+        e.setYear(2003);
+        ArrayList<Sales> m=new ArrayList<>();
+        m.add(d);
+        e.setSaleList(m);
+       
+        ItemService item=new ItemService();
+        item.saveItem(a);
+        item.saveOrder(b);
+        item.saveSalePerson(c);
+        item.saveSales(d);
+        item.saveTurnOver(e);
+        
+        
+        
+        
+    }
+}
